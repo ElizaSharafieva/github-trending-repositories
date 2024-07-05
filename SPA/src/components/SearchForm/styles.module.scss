@@ -1,0 +1,48 @@
+.searchForm {
+  width: 100%;
+  padding: 8px 0;
+  margin: 30px 0;
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+    &__container {
+      display: flex;
+      align-items: center;
+      gap: 29px;
+    }
+
+    &__input {
+      width: 80%;
+      align-self: stretch;
+      background: transparent;
+      border: 0;
+      padding: 0px;
+      font-family: "Inter", "Arial", sans-serif;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      caret-color: black;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &__button {
+      background: transparent;
+      background: url('../../images/search.png') center no-repeat;
+      padding: 23px 20px;
+      border: 0;
+      margin-left: 33px;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.7;
+      }
+    }
+  }

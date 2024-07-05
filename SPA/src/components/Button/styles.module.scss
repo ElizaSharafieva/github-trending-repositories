@@ -1,0 +1,30 @@
+.button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity .2s ease-in;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.button[loading='1'] {
+  animation: rotate 0.3s;
+}
+
+.image {
+  max-width: 50px;
+}
+
+@keyframes rotate {
+  0% {
+  transform: rotate(40deg);
+  }
+  50% {
+  transform: rotate(180deg);
+  }
+  100% {
+  transform: rotate(360deg);
+  }
+}

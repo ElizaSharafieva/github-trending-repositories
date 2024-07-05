@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__title {
+    font-family: "Inter", "Arial", sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.875rem, 1.2614rem + 3.0682vw, 3.5625rem);
+    line-height: 1.19;
+    letter-spacing: 0.285px;
+    margin: 12px 0;
+  }
+
+  &__text {
+    font-family: "Inter", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.9375rem, 0.8239rem + 0.5682vw, 1.25rem);
+    line-height: 1.6;
+    letter-spacing: 0.38px;
+    color: #686E73;
+  }
+}
