@@ -32,10 +32,13 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('каждый раз отрабатываю')
-    startAutoSync()
-    fetchRepositories()
-  }, [])
+    const init = async () => {
+      await startAutoSync();
+      await fetchRepositories();
+    };
+    
+    init();
+  }, []);
 
   return (
     <div className={styles.app}>

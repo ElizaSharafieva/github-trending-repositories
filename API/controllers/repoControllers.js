@@ -16,7 +16,8 @@ async function createRepo(repo) {
       ownerUrl: repo.owner.html_url,
       repoUrl: repo.html_url,
       description: repo.description,
-      stargazers_count: repo.stargazers_count
+      stargazers_count: repo.stargazers_count,
+      last_synced: Date.now()
     })    
   } catch(err) {
     if (err.code === 11000) {
@@ -35,12 +36,9 @@ async function getRepo(req, res, next) {
 }
 
 async function getAddedRepo(req, res, next) {
-  console.log('я вообще сюда попал')
   const identifier = req.params.nameOrId;
-  console.log(identifier)
   try { 
     const repository = await Repo.findOne({ $or: [{ id: identifier }, { name: identifier }, { login: identifier }] });
-    console.log(repository)
     if (repository === null) {
       res.json({ message: 'No data found!' });
     } else {
@@ -53,17 +51,14 @@ async function getAddedRepo(req, res, next) {
 }
 
 async function startSync(req, res, next) {
-  console.log('запускаюсь каждый час')
   try{
     const response = await axios.get('https://api.github.com/search/repositories?q=stars:>1&sort=stars&order=desc&per_page=5')
     const repositories = response.data.items;
-    // console.log(response.data.items)
     for (const repo of repositories) {
       const addedRepo = await Repo.findOne({ id: repo.id })
       if (addedRepo) {
-        console.log(addedRepo)
         addedRepo.stargazers_count = repo.stargazers_count;
-        // existingRepo.last_synced = Date.now();
+        addedRepo.last_synced = Date.now();
         await addedRepo.save();
       } else createRepo(repo)
     }
@@ -82,7 +77,7 @@ async function startTimer(req, res) {
       autoSyncTimer = setInterval(() => {
         startSync()
       }, minutes * 60 * 1000)
-      startSync()
+      await startSync()
       res.json({ message: 'Auto sync started!' });
       res.end();
     }
@@ -95,14 +90,12 @@ async function startTimer(req, res) {
 
 async function stopTimer(req, res) {
   try {
-    console.log('почитсились')
     if (autoSyncTimer) {
-      console.log('и после очистки сюда')
       clearInterval(autoSyncTimer);
       autoSyncTimer = setInterval(() => {
         startSync()
       }, minutes * 60 * 1000)
-      startSync()
+      await startSync()
       res.json({ message: 'Auto sync reset!' });
       res.end();
     } 

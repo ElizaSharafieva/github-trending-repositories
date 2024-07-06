@@ -50,6 +50,10 @@ const repoSchema = new mongoose.Schema({
   stargazers_count: {
     type: Number,
     required: true,
+  },
+  last_synced : {
+    type: Date,
+    default: Date.now
   }
 })
 

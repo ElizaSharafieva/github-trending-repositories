@@ -13,7 +13,7 @@ function Header({ onSync }) {
       setLoading(1)
       const response = await axios(`http://localhost:3000/sync/force`)
       console.log(response.data.message)
-      onSync()
+      await onSync()
     } catch(err) {
       console.log(err)
     }
