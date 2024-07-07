@@ -23,7 +23,7 @@ function App() {
 
   const startAutoSync = async () => {
     try {
-      const response = await axios(`https://github-trending-repositories-phi.vercel.app//sync/start`)
+      const response = await axios(`https://github-trending-repositories-phi.vercel.app/sync/start`)
       console.log(response.data.message)
       return response;
     } catch(err) {
