@@ -11,7 +11,7 @@ function Header({ onSync }) {
   const handleStartSync = async () => {
     try {
       setLoading(1)
-      const response = await axios(`http://localhost:3000/sync/force`)
+      const response = await axios(`https://github-trending-repositories-phi.vercel.app/sync/force`)
       console.log(response.data.message)
       await onSync()
     } catch(err) {

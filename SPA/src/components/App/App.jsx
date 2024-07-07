@@ -14,7 +14,7 @@ function App() {
 
   const fetchRepositories = async () => {
     try {
-      const response = await axios(`http://localhost:3000/repositories`)
+      const response = await axios(`https://github-trending-repositories-phi.vercel.app/repositories`)
       setRepos(response.data)
     } catch(err) {
       console.log(err);
@@ -23,7 +23,7 @@ function App() {
 
   const startAutoSync = async () => {
     try {
-      const response = await axios(`http://localhost:3000/sync/start`)
+      const response = await axios(`https://github-trending-repositories-phi.vercel.app//sync/start`)
       console.log(response.data.message)
       return response;
     } catch(err) {
