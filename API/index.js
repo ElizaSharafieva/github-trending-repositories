@@ -1,7 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors');
-// const adress = process.env.DB_ADDRESS;
+const path = require('path');
+require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+const MONGODB_URL = process.env.MONGODB_URL;
 
 const { PORT = 3000 } = process.env
 
@@ -11,7 +14,7 @@ app.use(express.json())
 
 app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
 
-mongoose.connect('mongodb://127.0.0.1:27017/topRepositories')
+mongoose.connect(MONGODB_URL)
 
 app.use('/', require('./routes/repoRoutes'))
 
