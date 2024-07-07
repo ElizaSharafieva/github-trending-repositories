@@ -6,12 +6,15 @@ import Button from "../Button/Button";
 
 function Header({ onSync }) {
 
+  
+  const APIURL = process.env.REACT_APP_API_URL
+
   const [loading, setLoading] = useState(0);
 
   const handleStartSync = async () => {
     try {
       setLoading(1)
-      const response = await axios(`https://github-trending-repositories-phi.vercel.app/sync/force`)
+      const response = await axios(`${APIURL}/sync/force`)
       console.log(response.data.message)
       await onSync()
     } catch(err) {

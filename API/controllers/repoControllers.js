@@ -4,7 +4,7 @@ const Repo = require('../model/repoSchema')
 const ConflictRequestError = require('../errors/ConflictRequestError');
 
 let autoSyncTimer = null;
-const minutes = 60;
+const minutes = 5;
 
 async function createRepo(repo) {
   try {

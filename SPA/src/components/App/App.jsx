@@ -7,14 +7,18 @@ import Main from '../Main/Main';
 import SearchForm from '../SearchForm/SearchForm'
 import RepositoryWrapper from '../RepositoryWrapper/RepositoryWrapper'
 
+
+
 function App() {
+
+  const APIURL = process.env.REACT_APP_API_URL
 
   const [repos, setRepos] = useState([]);
   const [value, setValue] = useState('');
 
   const fetchRepositories = async () => {
     try {
-      const response = await axios(`https://github-trending-repositories-phi.vercel.app/repositories`)
+      const response = await axios(`${APIURL}/repositories`)
       setRepos(response.data)
     } catch(err) {
       console.log(err);
@@ -23,7 +27,7 @@ function App() {
 
   const startAutoSync = async () => {
     try {
-      const response = await axios(`https://github-trending-repositories-phi.vercel.app/sync/start`)
+      const response = await axios(`${APIURL}/sync/start`)
       console.log(response.data.message)
       return response;
     } catch(err) {
