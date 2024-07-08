@@ -35,12 +35,18 @@ function Header({ onSync, fetchNextSyncTime, lastUpdate }) {
     }
   };
 
+  console.log(lastUpdate)
+
   return (
     <header className={styles.header}> 
       <div>
         <h1 className={styles.header__title}>Тренды GitHub за cегодня</h1>
         <p className={styles.header__text}>Популярные GitHub репозитории за сегодня. Рейтинг обновляется каждые 12 часов.</p>
-        <p className={styles.header__text}>Последнее обновление: {formattedDate}</p>
+        <p className={styles.header__text}>Последнее обновление: 
+          {
+            lastUpdate === '' ? '': formattedDate
+          }
+        </p>
       </div>
       <Button onClick={handleStartSync} setLoading={setLoading} loading={loading} src={update} alt={'иконка обновления'}/>
     </header>

@@ -14,7 +14,7 @@ function App() {
   const [repos, setRepos] = useState([]);
   const [value, setValue] = useState('');
   const [nextSyncTime, setNextSyncTime] = useState(null);
-  const [lastUpdate, setLastUpdate] = useState(Date.now());
+  const [lastUpdate, setLastUpdate] = useState('');
 
   const syncIntervalRef = useRef(null);
 
