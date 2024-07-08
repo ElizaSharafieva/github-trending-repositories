@@ -19,5 +19,11 @@
     line-height: 1.6;
     letter-spacing: 0.38px;
     color: #686E73;
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
   }
+
+
 }

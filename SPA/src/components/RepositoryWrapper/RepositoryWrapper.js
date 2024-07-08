@@ -33,10 +33,14 @@ const RepositoryWrapper = () => {
       });
   }, [identifier, navigate]);
 
+  console.log(repo)
+
   return (
     <div>
       <Button onClick={goToHome} src={arrow} alt={'стрелка назад'}/>
-      <RepositoryCard repo={repo} />
+      {
+        Object.keys(repo).length === 0 ? '' : <RepositoryCard repo={repo} />
+      }
     </div>
   )
 };

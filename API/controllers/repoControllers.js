@@ -4,7 +4,8 @@ const Repo = require('../model/repoSchema')
 const ConflictRequestError = require('../errors/ConflictRequestError');
 
 let autoSyncTimer = null;
-const minutes = 5;
+let nextSyncTime = null;
+const minutes = 720;
 
 async function createRepo(repo) {
   try {
@@ -62,6 +63,7 @@ async function startSync(req, res, next) {
         await addedRepo.save();
       } else createRepo(repo)
     }
+    nextSyncTime = Date.now() + minutes * 60 * 1000;
   } catch(err) {
     console.log(err)
   }
@@ -106,9 +108,14 @@ async function stopTimer(req, res) {
   }
 }
 
+function getNextSyncTime(req, res) {
+  res.json({ nextSyncTime });
+}
+
 module.exports = {
   getRepo,
   getAddedRepo,
   startTimer,
-  stopTimer
+  stopTimer,
+  getNextSyncTime
 };

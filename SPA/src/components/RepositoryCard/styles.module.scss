@@ -23,6 +23,14 @@
       &:hover {
         opacity: 0.5;
       }
+
+      &_notFound {
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 1.45;
+        letter-spacing: 0.352px;
+        text-align: center;
+      }
     }
 
     &__titleHiglight {
