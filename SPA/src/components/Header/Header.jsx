@@ -35,8 +35,6 @@ function Header({ onSync, fetchNextSyncTime, lastUpdate }) {
     }
   };
 
-  console.log(lastUpdate)
-
   return (
     <header className={styles.header}> 
       <div>
