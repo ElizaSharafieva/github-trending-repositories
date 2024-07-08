@@ -53,7 +53,7 @@ async function getAddedRepo(req, res, next) {
 
 async function startSync(req, res, next) {
   try{
-    const response = await axios.get('https://api.github.com/search/repositories?q=stars:>1&sort=stars&order=desc&per_page=5')
+    const response = await axios.get('https://api.github.com/search/repositories?q=stars:>1&sort=stars&order=desc&per_page=10')
     const repositories = response.data.items;
     for (const repo of repositories) {
       const addedRepo = await Repo.findOne({ id: repo.id })

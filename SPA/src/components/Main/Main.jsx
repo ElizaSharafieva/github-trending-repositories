@@ -6,11 +6,13 @@ function Main({ repos }) {
   return (
     <main className={styles.main}>
       {
-        repos.map((repo) => 
-          <RepositoryCard 
-            repo={repo}
-            key={repo.id}
-          />
+        repos.map((repo, index) => {
+          if (index < 10)
+            return <RepositoryCard 
+              repo={repo}
+              key={repo.id}
+            />
+        }
         )
       }
     </main>
