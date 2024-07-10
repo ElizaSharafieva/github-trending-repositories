@@ -15,6 +15,7 @@ app.use(express.json())
 app.use(cors({ origin: ['http://localhost:3001', 'https://github-trending-repositories-react.vercel.app'], credentials: true }));
 
 mongoose.connect(MONGODB_URL)
+// mongoose.connect('mongodb://127.0.0.1:27017/topRepositories')
 
 app.use('/', require('./routes/repoRoutes'))
 

@@ -4,9 +4,8 @@ import styles from './styles.module.scss'
 import update from '../../images/update.svg'
 import Button from "../Button/Button";
 
-function Header({ onSync, fetchNextSyncTime, lastUpdate }) {
+function Header({ onSync, lastUpdate, setNextSyncTime }) {
 
-  
   const APIURL = process.env.REACT_APP_API_URL
 
   const [loading, setLoading] = useState(0);
@@ -28,8 +27,8 @@ function Header({ onSync, fetchNextSyncTime, lastUpdate }) {
       setLoading(1)
       const response = await axios(`${APIURL}/sync/force`)
       console.log(response.data.message)
+      setNextSyncTime(response.data.nextSyncTime)
       await onSync()
-      await fetchNextSyncTime();
     } catch(err) {
       console.log(err)
     }

@@ -64,6 +64,7 @@ async function startSync(req, res, next) {
       } else createRepo(repo)
     }
     nextSyncTime = Date.now() + minutes * 60 * 1000;
+    console.log(`Auto sync started. Next sync scheduled for: ${new Date(nextSyncTime)}`);
   } catch(err) {
     console.log(err)
   }
@@ -72,16 +73,13 @@ async function startSync(req, res, next) {
 async function startTimer(req, res) {
   try {
     if (autoSyncTimer) {
-      res.status(208);
-      res.json({ message: 'Auto sync already started!' });
-      res.end();
+      res.status(208).json({ message: 'Auto sync already started!', nextSyncTime });
     } else {
-      autoSyncTimer = setInterval(() => {
-        startSync()
-      }, minutes * 60 * 1000)
+      autoSyncTimer = setInterval(async () => {
+        await startSync();
+      }, minutes * 60 * 1000);
       await startSync()
-      res.json({ message: 'Auto sync started!' });
-      res.end();
+      res.json({ message: 'Auto sync started!', nextSyncTime });
     }
   } catch (error) {
     console.log('Error: ' + error.message);
@@ -94,13 +92,15 @@ async function stopTimer(req, res) {
   try {
     if (autoSyncTimer) {
       clearInterval(autoSyncTimer);
-      autoSyncTimer = setInterval(() => {
-        startSync()
-      }, minutes * 60 * 1000)
+      autoSyncTimer = null;
       await startSync()
-      res.json({ message: 'Auto sync reset!' });
-      res.end();
-    } 
+      autoSyncTimer = setInterval(async () => {
+        await startSync();
+      }, minutes * 60 * 1000);
+      res.json({ message: 'Auto sync reset!', nextSyncTime }); 
+    } else {
+      res.status(208).json({ message: 'Auto sync already disabled!' });
+    }
   } catch (error) {
     console.log('Error: ' + error.message);
     res.status(500);
@@ -108,14 +108,9 @@ async function stopTimer(req, res) {
   }
 }
 
-function getNextSyncTime(req, res) {
-  res.json({ nextSyncTime });
-}
-
 module.exports = {
   getRepo,
   getAddedRepo,
   startTimer,
   stopTimer,
-  getNextSyncTime
 };

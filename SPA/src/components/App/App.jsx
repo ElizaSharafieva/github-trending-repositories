@@ -15,7 +15,6 @@ function App() {
   const [value, setValue] = useState('');
   const [nextSyncTime, setNextSyncTime] = useState(null);
   const [lastUpdate, setLastUpdate] = useState('');
-
   const syncIntervalRef = useRef(null);
 
   const fetchRepositories = async () => {
@@ -32,47 +31,45 @@ function App() {
     try {
       const response = await axios(`${APIURL}/sync/start`)
       console.log(response.data.message)
-      await fetchNextSyncTime();
-      return response;
+      setNextSyncTime(response.data.nextSyncTime)
     } catch(err) {
       console.log(err);
     }
   };
 
-  const fetchNextSyncTime = async () => {
-    try {
-      const response = await axios(`${APIURL}/sync/next`);
-      setNextSyncTime(response.data.nextSyncTime);
-    } catch (err) {
-      console.log(err);
-    }
+  const initialize = async () => {
+    await startAutoSync();
+    await fetchRepositories();
   };
 
   useEffect(() => {
-    const init = async () => {
-      await startAutoSync();
-      await fetchRepositories();
-    };
-    
-    init();
+    initialize();
+  }, []); 
 
-    const timeUntilNextSync = nextSyncTime - Date.now();
-    if (timeUntilNextSync > 0) {
-      syncIntervalRef.current = setInterval(async () => {
-        init();
-      }, timeUntilNextSync);
+  console.log(nextSyncTime)
+
+  useEffect(() => {
+    console.log(nextSyncTime)
+    if (nextSyncTime) {
+      const timeUntilNextSync = nextSyncTime - Date.now();
+
+      if (timeUntilNextSync > 0) {
+        syncIntervalRef.current = setTimeout(async () => {
+          await initialize();
+        }, timeUntilNextSync);
+      }
     }
 
     return () => {
       if (syncIntervalRef.current) {
-        clearInterval(syncIntervalRef.current);
+        clearTimeout(syncIntervalRef.current);
       }
     };
   }, [nextSyncTime]);
 
   return (
     <div className={styles.app}>
-      <Header onSync={fetchRepositories} fetchNextSyncTime={fetchNextSyncTime} lastUpdate={lastUpdate}/>
+      <Header onSync={fetchRepositories} lastUpdate={lastUpdate} setNextSyncTime={setNextSyncTime}/>
       <SearchForm value={value} setValue={setValue} />
       <Routes>
         <Route path="/" element={<Navigate to="/repositories" replace/>} />
