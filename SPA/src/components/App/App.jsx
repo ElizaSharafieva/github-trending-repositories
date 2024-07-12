@@ -46,10 +46,7 @@ function App() {
     initialize();
   }, []); 
 
-  console.log(nextSyncTime)
-
   useEffect(() => {
-    console.log(nextSyncTime)
     if (nextSyncTime) {
       const timeUntilNextSync = nextSyncTime - Date.now();
 
