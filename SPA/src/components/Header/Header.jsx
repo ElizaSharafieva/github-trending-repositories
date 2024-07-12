@@ -25,7 +25,7 @@ function Header({ onSync, lastUpdate, setNextSyncTime }) {
   const handleStartSync = async () => {
     try {
       setLoading(1)
-      const response = await axios(`${APIURL}/sync/force`)
+      const response = await axios(`${APIURL}/sync/force`, { withCredentials: true })
       console.log(response.data.message)
       setNextSyncTime(response.data.nextSyncTime)
       await onSync()

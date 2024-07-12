@@ -19,7 +19,7 @@ function App() {
 
   const fetchRepositories = async () => {
     try {
-      const response = await axios(`${APIURL}/repositories`)
+      const response = await axios(`${APIURL}/repositories`, { withCredentials: true })
       setRepos(response.data)
       setLastUpdate(new Date(response.data[0].last_synced))
     } catch(err) {
@@ -29,7 +29,7 @@ function App() {
 
   const startAutoSync = async () => {
     try {
-      const response = await axios(`${APIURL}/sync/start`)
+      const response = await axios(`${APIURL}/sync/start`, { withCredentials: true })
       console.log(response.data.message)
       setNextSyncTime(response.data.nextSyncTime)
     } catch(err) {
