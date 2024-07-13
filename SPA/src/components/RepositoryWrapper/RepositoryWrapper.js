@@ -13,7 +13,7 @@ const RepositoryWrapper = () => {
 
   const fetchRepositoryByIdentifier = async (identifier) => {
     try {
-      const response = await axios(`https://github-trending-repositories-phi.vercel.app/repositories/${identifier}`);
+      const response = await axios(`${APIURL}/repositories/${identifier}`, { withCredentials: true });
       setRepo(response.data);
       return response.data;
     } catch (err) {
