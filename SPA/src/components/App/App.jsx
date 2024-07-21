@@ -9,7 +9,7 @@ import RepositoryWrapper from '../RepositoryWrapper/RepositoryWrapper'
 
 function App() {
 
-  const APIURL = process.env.REACT_APP_API_URL
+  const APIURL = process.env.REACT_APP_API_URL || 'http://localhost:3000'
 
   const [repos, setRepos] = useState([]);
   const [value, setValue] = useState('');
@@ -29,7 +29,7 @@ function App() {
 
   const startAutoSync = async () => {
     try {
-      const response = await axios(`${APIURL}/sync/start`, { withCredentials: true })
+      const response = await axios.post(`${APIURL}/sync/start`, { withCredentials: true })
       console.log(response.data.message)
       setNextSyncTime(response.data.nextSyncTime)
     } catch(err) {

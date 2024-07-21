@@ -7,7 +7,7 @@ import arrow from '../../images/arrow.svg'
 
 const RepositoryWrapper = () => {
 
-  const APIURL = process.env.REACT_APP_API_URL
+  const APIURL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
   
   const { identifier } = useParams();
   const navigate = useNavigate();

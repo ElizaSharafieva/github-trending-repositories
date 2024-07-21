@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 
 function Header({ onSync, lastUpdate, setNextSyncTime }) {
 
-  const APIURL = process.env.REACT_APP_API_URL
+  const APIURL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 
   const [loading, setLoading] = useState(0);
 
@@ -25,7 +25,7 @@ function Header({ onSync, lastUpdate, setNextSyncTime }) {
   const handleStartSync = async () => {
     try {
       setLoading(1)
-      const response = await axios(`${APIURL}/sync/force`, { withCredentials: true })
+      const response = await axios.post(`${APIURL}/sync/force`, { withCredentials: true })
       console.log(response.data.message)
       setNextSyncTime(response.data.nextSyncTime)
       await onSync()
