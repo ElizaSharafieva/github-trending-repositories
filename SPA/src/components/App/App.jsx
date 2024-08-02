@@ -14,14 +14,17 @@ function App() {
   const [repos, setRepos] = useState([]);
   const [value, setValue] = useState('');
   const [nextSyncTime, setNextSyncTime] = useState(null);
+  const [nextResetTime, setNextResetTime] = useState(null);
   const [lastUpdate, setLastUpdate] = useState('');
   const syncIntervalRef = useRef(null);
 
   const fetchRepositories = async () => {
     try {
       const response = await axios(`${APIURL}/repositories`, { withCredentials: true })
-      setRepos(response.data)
-      setLastUpdate(new Date(response.data[0].last_synced))
+      setRepos(response.data.repositories)
+      console.log(response.data.nextResetTime)
+      setNextResetTime(response.data.nextResetTime)
+      setLastUpdate(new Date(response.data.repositories[0].last_synced))
     } catch(err) {
       console.log(err);
     }
@@ -43,8 +46,12 @@ function App() {
   };
 
   useEffect(() => {
+    console.log('ИНИШАЛ')
     initialize();
-  }, []); 
+  }, [nextResetTime]); 
+
+
+  console.log(nextSyncTime)
 
   useEffect(() => {
     if (nextSyncTime) {

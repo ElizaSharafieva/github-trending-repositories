@@ -20,12 +20,13 @@ const RepositoryCard = React.memo(( { repo }) => {
                 </SVGWrappepr>
                 {repo.stargazers_count}
               </li>
-              {/* <li className={styles.card__listItem}>
+              <li className={styles.card__listItem}>
                 <SVGWrappepr>
                   <Svg />
                 </SVGWrappepr>
-                59 Today переписать
-              </li> */}
+                {repo.daily_stars}
+                <p className={styles.card__text}>Today</p>
+              </li>
             </ul>
           </div>
           <div className={styles.card__cardContainer}>
