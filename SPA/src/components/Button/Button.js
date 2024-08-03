@@ -4,6 +4,7 @@ const Button = ({ onClick, setLoading, loading, src, alt }) => {
 
   return (
     <button 
+      type='button'
       className={styles.button} 
       onClick={onClick}
       onAnimationEnd={() => setLoading(0)}
@@ -12,6 +13,6 @@ const Button = ({ onClick, setLoading, loading, src, alt }) => {
       <img className={styles.image} src={src} alt={alt}/>
     </button>
   )
-};
+}
 
 export default Button

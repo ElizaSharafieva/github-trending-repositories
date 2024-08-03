@@ -1,17 +1,18 @@
-import { useNavigate } from "react-router-dom";
-import styles from './styles.module.scss';
+import { useNavigate } from "react-router-dom"
+import styles from './styles.module.scss'
 
 function SearchForm({ value, setValue, setRepo }) {
   
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   function handleChangeValue(evt) {
-    setValue(evt.target.value);
-  };
+    setValue(evt.target.value)
+  }
 
   const handleSearchRepo = async function() {
     if (value) {
-      navigate(`/repositories/${value}`, { replace: true });
+      value = value.trim()
+      navigate(`/repositories/${value}`, { replace: true })
       setValue('')
     }
   }
@@ -37,7 +38,7 @@ function SearchForm({ value, setValue, setRepo }) {
         </input>
       </div>
     </form>
-  );
+  )
 }
 
-export default SearchForm;
+export default SearchForm

@@ -44,6 +44,9 @@
       line-height: 1.65;
       letter-spacing: -0.442px;
       color: #686E73;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; 
     }
 
     &__list {

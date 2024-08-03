@@ -46,4 +46,4 @@ const RepositoryCard = React.memo(( { repo }) => {
   )
 })
 
-export default RepositoryCard;
+export default RepositoryCard

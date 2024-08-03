@@ -1,15 +1,15 @@
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
 const SVGWrappepr = (props) => {
   const {
     children
-  } = props;
+  } = props
 
   return(
     <div className={styles.svgWrapper}>
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default SVGWrappepr;
+export default SVGWrappepr

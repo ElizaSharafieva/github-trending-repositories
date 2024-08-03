@@ -1,39 +1,40 @@
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { useEffect, useState } from "react"
 import RepositoryCard from '../RepositoryCard/RepositoryCard'
 import Button from '../Button/Button'
 import arrow from '../../images/arrow.svg'
 
 const RepositoryWrapper = () => {
 
-  const APIURL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+  const APIURL = process.env.REACT_APP_API_URL || 'http://localhost:3000'
   
-  const { identifier } = useParams();
-  const navigate = useNavigate();
-  const [repo, setRepo] = useState({});
+  const { identifier } = useParams()
+  const navigate = useNavigate()
+  const [repo, setRepo] = useState({})
 
   const fetchRepositoryByIdentifier = async (identifier) => {
     try {
-      const response = await axios(`${APIURL}/repositories/${identifier}`, { withCredentials: true });
-      setRepo(response.data);
-      return response.data;
+      const response = await axios(`${APIURL}/repositories/${identifier}`, { withCredentials: true })
+      setRepo(response.data)
+      return response.data
     } catch (err) {
-      console.log(err);
+      setRepo(err.response.data)
+      console.log(err)
     }
-  };
+  }
 
   const goToHome = () => {
-    navigate('/repositories');
-  };  
+    navigate('/repositories')
+  }
 
   useEffect(() => {
     fetchRepositoryByIdentifier(identifier)
       .catch(err => {
-        console.log(err);
-        navigate('/repositories'); 
-      });
-  }, [identifier, navigate]);
+        console.log(err)
+        navigate('/repositories')
+      })
+  }, [identifier, navigate])
 
   console.log(repo)
 
@@ -45,6 +46,6 @@ const RepositoryWrapper = () => {
       }
     </div>
   )
-};
+}
 
-export default RepositoryWrapper;
+export default RepositoryWrapper
